@@ -7,10 +7,10 @@ FROM openjdk:17-jdk-alpine
 
 EXPOSE 8080
 
-ENV TWILIO_SID=your_twilio_sid_value
-ENV TWILIO_KEY=your_twilio_key_value
-ENV TWILIO_PHONE_FROM=your_twilio_phone_from_value
-ENV TWILIO_PHONE_TO=your_twilio_phone_to_value
+ENV TWILIO_SID=${TWILIO_SID}
+ENV TWILIO_KEY=${TWILIO_KEY}
+ENV TWILIO_PHONE_FROM=${TWILIO_PHONE_FROM}
+ENV TWILIO_PHONE_TO=${TWILIO_PHONE_TO}
 
 COPY --from=build /target/*.jar app.jar
 
