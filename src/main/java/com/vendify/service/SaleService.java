@@ -1,19 +1,18 @@
 package com.vendify.service;
 
-import com.vendify.model.Sale;
-import com.vendify.repository.SaleRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import com.vendify.model.Sale;
+import com.vendify.repository.SaleRepository;
 
-@Slf4j
+import lombok.AllArgsConstructor;
+
 @Service
 @AllArgsConstructor
 public class SaleService {
@@ -27,11 +26,6 @@ public class SaleService {
         LocalDate minDateParsed = minDate.isEmpty() ? today.minusDays(365) : LocalDate.parse(minDate, formatter);
         LocalDate maxDateParsed = maxDate.isEmpty() ? today : LocalDate.parse(maxDate, formatter);
 
-        log.info("minDateParsed: {}", minDateParsed);
-        log.info("maxDateParsed: {}", maxDateParsed);
-
-        Page<Sale> sales = saleRepository.findAllByDate(minDateParsed, maxDateParsed, pageable);
-        log.info("Number of sales found: {}", sales.getTotalElements());
-        return sales;
+        return saleRepository.findAllByDate(minDateParsed, maxDateParsed, pageable);
     }
 }
